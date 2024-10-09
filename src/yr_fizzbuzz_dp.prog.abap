@@ -37,6 +37,7 @@ ENDCLASS.
 CLASS ltc_fizzbuzz IMPLEMENTATION.
   METHOD number1_returns_1.
     DATA cut TYPE REF TO lcl_fizzbuzz.
+    cut = NEW #(  ).
     cl_abap_unit_assert=>assert_equals( exp = 1 act = cut->calculate( 1 ) ).
   ENDMETHOD.
 ENDCLASS.
