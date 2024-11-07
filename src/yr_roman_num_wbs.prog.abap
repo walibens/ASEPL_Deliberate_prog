@@ -1,32 +1,32 @@
 REPORT yr_roman_num_wbs.
 
-class lcl_roman_number definition final.
+CLASS lcl_roman_number DEFINITION FINAL.
 
-  public section.
-METHODS :
-contructor IMPORTING roman type string,
-value
-      RETURNING
-        value(result) TYPE string.
-  protected section.
+  PUBLIC SECTION.
+    METHODS :
+      contructor IMPORTING roman TYPE string,
+      value
+        RETURNING
+          VALUE(result) TYPE string.
+  PROTECTED SECTION.
 
-  private section.
+  PRIVATE SECTION.
     DATA roman_number TYPE string.
 
-endclass.
+ENDCLASS.
 
-class lcl_roman_number implementation.
+CLASS lcl_roman_number IMPLEMENTATION.
 
-  method contructor.
-roman_number = roman.
-  endmethod.
+  METHOD contructor.
+    roman_number = roman.
+  ENDMETHOD.
 
 
   METHOD value.
-result = 'I'.
+    result = 'I'.
   ENDMETHOD.
 
-endclass.
+ENDCLASS.
 
 
 
@@ -78,19 +78,29 @@ CLASS ltc_to_roman_converter DEFINITION FINAL FOR TESTING
   RISK LEVEL HARMLESS.
 
   PRIVATE SECTION.
-    METHODS:
-      I_gives_1 FOR TESTING RAISING cx_static_check.
+    METHODS convert
+      IMPORTING
+        arab          TYPE REF TO lcl_arab_number
+      RETURNING
+        VALUE(result) TYPE string.
+
+    METHODS: i_gives_1 FOR TESTING RAISING cx_static_check.
+
 ENDCLASS.
 
 
 CLASS ltc_to_roman_converter IMPLEMENTATION.
 
-  METHOD I_gives_1.
+  METHOD convert.
+    result = 'I'.
+  ENDMETHOD.
+
+  METHOD i_gives_1.
     DATA(arab_number) = NEW lcl_arab_number( ).
-data(roman_number) = new lcl_roman_number( ).
-    DATA: cut TYPE REF TO lcl_to_roman_converter.
-    cut = NEW #(  ).
-    cl_abap_unit_assert=>assert_equals(  exp = roman_number->value(  ) act = cut->convert( arab_number ) ).
+    DATA(roman_number) = NEW lcl_roman_number( ).
+
+    cl_abap_unit_assert=>assert_equals(  exp = roman_number->value(  ) act = convert( arab_number ) ).
+
   ENDMETHOD.
 
 ENDCLASS.
