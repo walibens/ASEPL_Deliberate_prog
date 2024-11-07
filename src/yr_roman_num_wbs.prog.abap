@@ -59,8 +59,15 @@ endclass.
 class ltc_from_roman_converter implementation.
 
   method first_test.
-    cl_abap_unit_assert=>fail( 'Implement your first test here' ).
-
+    cl_abap_unit_assert=>assert_true(
+      EXPORTING
+        act              = abap_true
+*        msg              =
+*        level            = if_abap_unit_constant=>severity-medium
+*        quit             = if_abap_unit_constant=>quit-test
+*      RECEIVING
+*        assertion_failed =
+    ).
   endmethod.
 
 endclass.
