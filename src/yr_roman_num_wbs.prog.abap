@@ -23,7 +23,7 @@ roman_number = roman.
 
 
   METHOD value.
-
+result = 'I'.
   ENDMETHOD.
 
 endclass.
