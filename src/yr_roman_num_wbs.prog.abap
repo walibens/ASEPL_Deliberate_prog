@@ -1,13 +1,13 @@
 REPORT yr_roman_num_wbs.
 
-CLASS lcl_roman_numeral DEFINITION FINAL.
+CLASS lcl_to_roman_converter DEFINITION FINAL.
 
   PUBLIC SECTION.
     METHODS convert
       IMPORTING
-        roman         TYPE string
+        arab         TYPE i
       RETURNING
-        VALUE(result) TYPE i.
+        VALUE(result) TYPE string.
 
   PROTECTED SECTION.
 
@@ -15,18 +15,18 @@ CLASS lcl_roman_numeral DEFINITION FINAL.
 
 ENDCLASS.
 
-CLASS lcl_roman_numeral IMPLEMENTATION.
+CLASS lcl_to_roman_converter IMPLEMENTATION.
 
 
   METHOD convert.
-    result = 1.
+    result = 'I'.
   ENDMETHOD.
 
 ENDCLASS.
 
 
 
-CLASS ltc_roman_numeral DEFINITION FINAL FOR TESTING
+CLASS ltc_to_roman_converter DEFINITION FINAL FOR TESTING
   DURATION SHORT
   RISK LEVEL HARMLESS.
 
@@ -36,12 +36,30 @@ CLASS ltc_roman_numeral DEFINITION FINAL FOR TESTING
 ENDCLASS.
 
 
-CLASS ltc_roman_numeral IMPLEMENTATION.
+CLASS ltc_to_roman_converter IMPLEMENTATION.
 
   METHOD I_gives_1.
-    DATA: cut TYPE REF TO lcl_roman_numeral.
+    DATA: cut TYPE REF TO lcl_to_roman_converter.
           cut = new #(  ).
-    cl_abap_unit_assert=>assert_equals(  exp = 1 act = cut->convert( 'I' ) ).
+    cl_abap_unit_assert=>assert_equals(  exp = 'I' act = cut->convert( 1 ) ).
   ENDMETHOD.
 
 ENDCLASS.
+
+class ltc_from_roman_converter definition final for testing
+  duration short
+  risk level harmless.
+
+  private section.
+    methods:
+      first_test for testing raising cx_static_check.
+endclass.
+
+
+class ltc_from_roman_converter implementation.
+
+  method first_test.
+    cl_abap_unit_assert=>fail( 'Implement your first test here' ).
+  endmethod.
+
+endclass.
