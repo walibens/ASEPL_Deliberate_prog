@@ -1,6 +1,6 @@
 REPORT yr_roman_num_wbs.
 
-CLASS lcl_arab_number DEFINITION CREATE PRIVATE.
+CLASS lcl_arab_number DEFINITION .
 
   PUBLIC SECTION.
     METHODS : contructor IMPORTING number TYPE i.
@@ -22,7 +22,7 @@ CLASS lcl_to_roman_converter DEFINITION FINAL.
   PUBLIC SECTION.
     METHODS convert
       IMPORTING
-        arab          TYPE i
+        arab          TYPE REF TO lcl_arab_number
       RETURNING
         VALUE(result) TYPE string.
 
@@ -56,9 +56,11 @@ ENDCLASS.
 CLASS ltc_to_roman_converter IMPLEMENTATION.
 
   METHOD I_gives_1.
+    DATA(arab_number) = NEW lcl_arab_number( ).
+
     DATA: cut TYPE REF TO lcl_to_roman_converter.
     cut = NEW #(  ).
-    cl_abap_unit_assert=>assert_equals(  exp = 'I' act = cut->convert( 1 ) ).
+    cl_abap_unit_assert=>assert_equals(  exp = 'I' act = cut->convert( arab_number ) ).
   ENDMETHOD.
 
 ENDCLASS.
