@@ -47,31 +47,6 @@ CLASS lcl_arab_number IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
-CLASS lcl_to_roman_converter DEFINITION FINAL.
-
-  PUBLIC SECTION.
-    METHODS convert
-      IMPORTING
-        arab          TYPE REF TO lcl_arab_number
-      RETURNING
-        VALUE(result) TYPE string.
-
-  PROTECTED SECTION.
-
-  PRIVATE SECTION.
-
-ENDCLASS.
-
-CLASS lcl_to_roman_converter IMPLEMENTATION.
-
-
-  METHOD convert.
-    result = 'I'.
-  ENDMETHOD.
-
-ENDCLASS.
-
-
 
 CLASS ltc_to_roman_converter DEFINITION FINAL FOR TESTING
   DURATION SHORT
@@ -121,11 +96,6 @@ CLASS ltc_from_roman_converter IMPLEMENTATION.
     cl_abap_unit_assert=>assert_true(
       EXPORTING
         act = abap_true
-*       msg =
-*       level            = if_abap_unit_constant=>severity-medium
-*       quit             = if_abap_unit_constant=>quit-test
-*      RECEIVING
-*       assertion_failed =
     ).
   ENDMETHOD.
 
