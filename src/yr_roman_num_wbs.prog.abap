@@ -1,5 +1,35 @@
 REPORT yr_roman_num_wbs.
 
+class lcl_roman_number definition final.
+
+  public section.
+METHODS :
+contructor IMPORTING roman type string,
+value
+      RETURNING
+        value(result) TYPE string.
+  protected section.
+
+  private section.
+    DATA roman_number TYPE string.
+
+endclass.
+
+class lcl_roman_number implementation.
+
+  method contructor.
+roman_number = roman.
+  endmethod.
+
+
+  METHOD value.
+
+  ENDMETHOD.
+
+endclass.
+
+
+
 CLASS lcl_arab_number DEFINITION .
 
   PUBLIC SECTION.
@@ -57,10 +87,10 @@ CLASS ltc_to_roman_converter IMPLEMENTATION.
 
   METHOD I_gives_1.
     DATA(arab_number) = NEW lcl_arab_number( ).
-
+data(roman_number) = new lcl_roman_number( ).
     DATA: cut TYPE REF TO lcl_to_roman_converter.
     cut = NEW #(  ).
-    cl_abap_unit_assert=>assert_equals(  exp = 'I' act = cut->convert( arab_number ) ).
+    cl_abap_unit_assert=>assert_equals(  exp = roman_number->value(  ) act = cut->convert( arab_number ) ).
   ENDMETHOD.
 
 ENDCLASS.
