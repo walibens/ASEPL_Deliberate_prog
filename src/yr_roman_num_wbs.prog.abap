@@ -1,11 +1,28 @@
 REPORT yr_roman_num_wbs.
 
+CLASS lcl_arab_number DEFINITION CREATE PRIVATE.
+
+  PUBLIC SECTION.
+    METHODS : contructor IMPORTING number TYPE i.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+    DATA : number TYPE i.
+
+ENDCLASS.
+
+CLASS lcl_arab_number IMPLEMENTATION.
+
+  METHOD contructor.
+    me->number = number.
+  ENDMETHOD.
+
+ENDCLASS.
 CLASS lcl_to_roman_converter DEFINITION FINAL.
 
   PUBLIC SECTION.
     METHODS convert
       IMPORTING
-        arab         TYPE i
+        arab          TYPE i
       RETURNING
         VALUE(result) TYPE string.
 
@@ -40,34 +57,34 @@ CLASS ltc_to_roman_converter IMPLEMENTATION.
 
   METHOD I_gives_1.
     DATA: cut TYPE REF TO lcl_to_roman_converter.
-          cut = new #(  ).
+    cut = NEW #(  ).
     cl_abap_unit_assert=>assert_equals(  exp = 'I' act = cut->convert( 1 ) ).
   ENDMETHOD.
 
 ENDCLASS.
 
-class ltc_from_roman_converter definition final for testing
-  duration short
-  risk level harmless.
+CLASS ltc_from_roman_converter DEFINITION FINAL FOR TESTING
+  DURATION SHORT
+  RISK LEVEL HARMLESS.
 
-  private section.
-    methods:
-      first_test for testing raising cx_static_check.
-endclass.
+  PRIVATE SECTION.
+    METHODS:
+      first_test FOR TESTING RAISING cx_static_check.
+ENDCLASS.
 
 
-class ltc_from_roman_converter implementation.
+CLASS ltc_from_roman_converter IMPLEMENTATION.
 
-  method first_test.
+  METHOD first_test.
     cl_abap_unit_assert=>assert_true(
       EXPORTING
-        act              = abap_true
-*        msg              =
-*        level            = if_abap_unit_constant=>severity-medium
-*        quit             = if_abap_unit_constant=>quit-test
+        act = abap_true
+*       msg =
+*       level            = if_abap_unit_constant=>severity-medium
+*       quit             = if_abap_unit_constant=>quit-test
 *      RECEIVING
-*        assertion_failed =
+*       assertion_failed =
     ).
-  endmethod.
+  ENDMETHOD.
 
-endclass.
+ENDCLASS.
