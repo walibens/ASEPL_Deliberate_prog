@@ -60,6 +60,7 @@ class ltc_from_roman_converter implementation.
 
   method first_test.
     cl_abap_unit_assert=>fail( 'Implement your first test here' ).
+
   endmethod.
 
 endclass.
